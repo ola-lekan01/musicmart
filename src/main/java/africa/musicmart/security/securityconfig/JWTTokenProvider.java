@@ -1,5 +1,6 @@
 package africa.musicmart.security.securityconfig;
 
+import africa.musicmart.security.securityconfig.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
