@@ -1,4 +1,4 @@
-package africa.musicmart.data.model;
+package africa.musicmart.data.model.playlist;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,9 +20,8 @@ public class Playlist {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private boolean isPublic = true;
+    private boolean isCollaborative = false;
     private String description;
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "Playlist_songs",
-//            joinColumns = @JoinColumn(name = "playlist_id", referencedColumnName = "songs_id"))
-//    private List<Song> songs = new ArrayList<>();
+
 }

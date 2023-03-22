@@ -38,13 +38,12 @@ public class SpotifyClient {
                 reader.close();
                 String responseBody = response.toString();
                 Gson gson = new Gson();
-                log.info(responseBody);
                 return gson.fromJson(responseBody, TokenResponse.class);
             } else {
-                System.err.println("Authorization request failed with response code: " + responseCode);
+                log.error("Authorization request failed with response code: " + responseCode);
             }
         } catch (Exception e) {
-            System.err.println("Error getting access token: " + e.getMessage());
+            log.error("Error getting access token: " + e.getMessage());
         }
         return null;
     }
