@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "app_user_id", nullable = false)
+    @Column( nullable = false)
     private String appUserId;
     private String username;
     private String email;
