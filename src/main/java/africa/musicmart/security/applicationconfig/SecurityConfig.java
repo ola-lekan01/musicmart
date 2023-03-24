@@ -21,13 +21,17 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     private static final String[] AUTH_WHITELIST = {
+            "/login",
+            "/signup",
+            "/forgotPassword",
+            "confirmToken",
+            "/api/v1/user/**",
             "/oauth2/**",
             "/authenticate",
             "/swagger-resources/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/webjars/**",
-            "/api/v1/user/**",
             "/api/v1/demo/**"
     };
 
