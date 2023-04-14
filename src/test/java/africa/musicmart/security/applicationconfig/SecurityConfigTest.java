@@ -42,7 +42,7 @@ class SecurityConfigTest {
     @BeforeEach
     void setUp() {
         mockedUser = new AppUser();
-        mockedUser.setUsername("testing");
+        mockedUser.setName("testing");
         mockedUser.setEmail(mockedUser.getEmail());
         mockedUser.setPassword("pass1234");
     }
@@ -69,7 +69,7 @@ class SecurityConfigTest {
 
         assertNotNull(fetchedUser);
         assertAll(
-                () -> assertEquals(mockedUser.getUsername(), fetchedUser.getName()),
+                () -> assertEquals(mockedUser.getName(), fetchedUser.getName()),
                 () -> assertEquals(mockedUser.getEmail(), fetchedUser.getEmail()),
                 () -> assertEquals(mockedUser.getPassword(), fetchedUser.getPassword()),
                 () -> assertEquals(1L, fetchedUser.getAuthorities().size())
@@ -106,7 +106,7 @@ class SecurityConfigTest {
         String actual = tokenProvider.extractEmail(jwtToken);
 
         //Assert
-        assertEquals(mockedUser.getUsername(), actual);
+        assertEquals(mockedUser.getName(), actual);
     }
 
     @Test
