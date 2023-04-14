@@ -16,15 +16,19 @@ import java.time.LocalDateTime;
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "app_user_id", nullable = false)
+    @Column( nullable = false)
+    @JsonIgnore
     private String appUserId;
-    private String username;
+    private String name;
     private String email;
     @JsonIgnore
     private String password;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonIgnore
     private LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonIgnore
     private LocalDateTime updatedAt;
+    @JsonIgnore
     private Boolean emailVerified;
 }

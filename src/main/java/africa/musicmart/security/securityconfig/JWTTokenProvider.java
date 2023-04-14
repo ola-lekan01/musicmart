@@ -1,6 +1,5 @@
 package africa.musicmart.security.securityconfig;
 
-import africa.musicmart.security.securityconfig.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,7 +18,6 @@ import java.util.function.Function;
 
 @Component
 public class JWTTokenProvider {
-
     @Value("${JWT_SECRET_KEY}")
     private String SECRET_KEY;
     @Value("${TOKEN_EXPIRATION}")
