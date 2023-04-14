@@ -12,6 +12,6 @@ COPY mvnw pom.xml ./
 
 COPY src ./src
 
-EXPOSE ${PORT}
+EXPOSE 80
 
 CMD ["./mvnw", "spring-boot:run"]
