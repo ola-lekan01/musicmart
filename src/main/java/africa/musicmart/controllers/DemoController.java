@@ -3,9 +3,8 @@ package africa.musicmart.controllers;
 
 import africa.musicmart.data.dto.request.PlaylistRequest;
 import africa.musicmart.data.dto.response.ApiResponse;
-import africa.musicmart.services.PlaylistService;
-import africa.musicmart.utils.SpotifyClient;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,17 +29,9 @@ import java.time.ZonedDateTime;
 
 @RestController
 @RequestMapping("api/v1/demo")
+@RequiredArgsConstructor
 public class DemoController {
-
-
-    @Autowired
-    private SpotifyClient spotifyClient;
-    @Autowired
-    private PlaylistService playlistService;
-
-    @Autowired
-    UserService userService;
-
+    private final UserService userService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody @Valid RegistrationRequest registrationRequest,
@@ -56,13 +47,6 @@ public class DemoController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
-
-//    @GetMapping("/get-token")
-//    public ResponseEntity<ApiResponse> getToken(HttpServletRequest request){
-//        ApiResponse apiResponse=ApiResponse.builder()
-//                .status(HttpStatus.OK.value())
-//                .data(spotifyClient.getAccessToken())
-//    }
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest,
                                     HttpServletRequest request) {
@@ -74,30 +58,6 @@ public class DemoController {
                 .isSuccessful(true)
                 .build();
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
-
-    @PostMapping("/create-playlist")
-    public ResponseEntity<ApiResponse> createPlaylist(@RequestBody  PlaylistRequest playlistRequest, HttpServletRequest httpServletRequest) throws IOException {
-        ApiResponse apiResponse = ApiResponse.builder()
-                .status(HttpStatus.OK.value())
-                .data(playlistService.createPlaylist(playlistRequest))
-                .timestamp(ZonedDateTime.now())
-                .path(httpServletRequest.getRequestURI())
-                .isSuccessful(true)
-                .build();
-        return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
-    }
-    @PostMapping("/forgotPassword")
-    public ResponseEntity<?> forgotPassword(@RequestBody @Valid ForgotPasswordRequest forgotPasswordRequest,
-                                            HttpServletRequest request) {
-        ApiResponse apiResponse = ApiResponse.builder()
-                .status(HttpStatus.OK.value())
-                .data(userService.forgotPassword(forgotPasswordRequest))
-                .timestamp(ZonedDateTime.now())
-                .path(request.getRequestURI())
-                .isSuccessful(true)
-                .build();
-        return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
     @PostMapping("/confirmToken")

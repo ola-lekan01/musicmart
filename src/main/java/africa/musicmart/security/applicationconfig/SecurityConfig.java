@@ -21,10 +21,6 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
 
     private static final String[] AUTH_WHITELIST = {
-            "/login",
-            "/signup",
-            "/forgotPassword",
-            "confirmToken",
             "/api/v1/user/**",
             "/oauth2/**",
             "/authenticate",

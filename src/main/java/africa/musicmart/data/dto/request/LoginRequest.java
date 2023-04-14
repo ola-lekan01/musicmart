@@ -12,8 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LoginRequest{
     @NotBlank
-    private String username;
+    private String email;
     @NotBlank
-    @Pattern(regexp="^([a-zA-Z\\d@*#$&!]{5,15})$")
     private String  password;
 }

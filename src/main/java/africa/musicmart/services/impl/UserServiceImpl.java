@@ -1,8 +1,6 @@
 package africa.musicmart.services.impl;
 
-import africa.musicmart.Email.EmailSender;
 import africa.musicmart.data.dto.request.ConfirmTokenRequest;
-import africa.musicmart.data.dto.request.ForgotPasswordRequest;
 import africa.musicmart.data.dto.request.LoginRequest;
 import africa.musicmart.data.dto.request.RegistrationRequest;
 import africa.musicmart.data.dto.response.ApiData;
@@ -19,16 +17,13 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    ConfirmTokenService confirmTokenService;
-
-    EmailSender emailSender;
+    private final ConfirmTokenService confirmTokenService;
 
     @Override
     public ApiData signup(RegistrationRequest registrationRequest) {
@@ -38,7 +33,7 @@ public class UserServiceImpl implements UserService {
                 .isPresent())  throw new GenericException(String.format("%s already taken", registrationRequest.getUsername()));
 
         var user = AppUser.builder()
-                .username(registrationRequest.getUsername())
+                .name(registrationRequest.getUsername())
                 .email(registrationRequest.getEmail().toLowerCase())
                 .password(passwordEncoder.encode(registrationRequest.getPassword()))
                 .build();
@@ -53,30 +48,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmailIgnoreCase(email);
     }
     private Optional<AppUser>findByUsername(String username){
-        return  userRepository.findByUsername(username);
+        return  userRepository.findByName(username);
     }
 
     @Override
-    public String login(LoginRequest loginRequest){
-        var findUser = userRepository.findByUsername(loginRequest.getUsername())
-                .orElseThrow(()-> new GenericException(String.format("%s not found", loginRequest.getUsername())));
+    public AppUser login(LoginRequest loginRequest){
+        var findUser = userRepository.findByEmailIgnoreCase(loginRequest.getEmail())
+                .orElseThrow(()-> new GenericException(String.format("%s not found", loginRequest.getEmail())));
    if(!passwordEncoder.matches(loginRequest.getPassword(),findUser.getPassword())){
     throw new GenericException("Invalid login details");
      }
-    return "Login successful";
+    return findUser;
     }
 
-    @Override
-    public String forgotPassword(ForgotPasswordRequest forgotPasswordRequest){
-        var findUser = userRepository.findByEmailIgnoreCase(forgotPasswordRequest.getEmail())
-                .orElseThrow(()-> new RuntimeException("User not found"));
 
-        String token = generateToken(findUser);
-        emailSender.send(findUser.getEmail(), forgotPasswordEmail(findUser.getUsername(), token));
-
-        return token;
-
-    }
     public String generateToken (AppUser appUser){
 
         SecureRandom secureRandom=new SecureRandom();

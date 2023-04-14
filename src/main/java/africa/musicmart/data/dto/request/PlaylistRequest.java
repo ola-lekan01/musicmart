@@ -1,6 +1,5 @@
 package africa.musicmart.data.dto.request;
 
-import africa.musicmart.data.model.Song;
 import lombok.Data;
 
 @Data

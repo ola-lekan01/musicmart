@@ -32,7 +32,7 @@ public class UserPrincipal implements UserDetails {
         List<GrantedAuthority> authorities = getAuthorities(appUser);
         return new UserPrincipal(
                 appUser.getAppUserId(),
-                appUser.getUsername(),
+                appUser.getName(),
                 appUser.getEmail(),
                 appUser.getPassword(),
                 appUser.getEmailVerified(),
