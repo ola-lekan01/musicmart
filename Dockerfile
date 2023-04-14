@@ -12,6 +12,6 @@ RUN ./mvnw dependency:resolve
 
 COPY src ./src
 
-EXPOSE 80
+EXPOSE 443/tcp
 
 CMD ["./mvnw", "spring-boot:run"]
